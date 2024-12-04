@@ -1,0 +1,35 @@
+body {
+    background-color: #f4f7fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+h1, h2 {
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.invalid-feedback {
+    font-size: 0.9rem;
+}
+
+footer {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+}

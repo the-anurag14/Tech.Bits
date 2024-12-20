@@ -1,0 +1,13 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="3.1">
+    <servlet>
+        <servlet-name>HealthcareController</servlet-name>
+        <servlet-class>com.example.controller.HealthcareController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HealthcareController</servlet-name>
+        <url-pattern>/healthcare</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

@@ -44,12 +44,6 @@ Technology used in the Hospital Management System project in java
 * Back-end: MYSQL.
 * Server: Tomcat 8.5.
 
-## Want to Contribute?
-- Created something awesome, made this code better, added some functionality, or whatever (this is the hardest part).
-- [Fork it](http://help.github.com/forking/).
-- Create new branch to contribute your changes.
-- Commit all your changes to your branch.
-- Submit a [pull request](http://help.github.com/pull-requests/).
 
 Screenshot:
 
@@ -76,6 +70,9 @@ Admin Login:
 Admin Dashboard:
 
 ![Admin Home - Google Chrome 20-08-2020 01_58_45 PM](https://user-images.githubusercontent.com/56467741/90974889-5872d180-e4fd-11ea-84aa-e23402ecdea0.png)
+
+
+**NOTE:- This is the new project. Old file were corrupted.
 
 
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import Database.DatabaseConnection;
@@ -10,31 +5,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Admin
- */
 @WebServlet("/AddWorker")
 public class AddWorker extends HttpServlet {
-
-    private int i;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-PrintWriter pw = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter pw = response.getWriter();
         try {
             Date todaysDate = new Date();
             DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -42,33 +29,44 @@ PrintWriter pw = response.getWriter();
             String fname = request.getParameter("fname");
             String lname = request.getParameter("lname");
             String phone = request.getParameter("Mobile");
+
+            if (phone == null || phone.trim().isEmpty()) {
+                pw.println("<script type=\"text/javascript\">");
+                pw.println("alert('Mobile number is required!');");
+                pw.println("window.location.href = \"addWorker.jsp\";");
+                pw.println("</script>");
+                return;
+            }
+
             String DateAndTime = df2.format(todaysDate);
 
-            Connection con = DatabaseConnection.initializeDatabase();
-            PreparedStatement pst = con.prepareStatement("insert into worker values(?,?,?,?)");
-            pst.setString(1, fname);
-            pst.setString(2, lname);
-            pst.setString(3, phone);
-            pst.setString(4, DateAndTime);
+            try (Connection con = DatabaseConnection.initializeDatabase();
+                 PreparedStatement pst = con.prepareStatement("INSERT INTO worker (fname, lname, mobile, date) VALUES (?,?,?,?)")) {
+                
+                pst.setString(1, fname);
+                pst.setString(2, lname);
+                pst.setString(3, phone.trim());
+                pst.setString(4, DateAndTime);
 
-            i = pst.executeUpdate();
-            if (i > 0) {
-                pw.println("<script type=\"text/javascript\">");
-                pw.println("alert('Add Successfully..!');");
-                pw.println("window.location.href = \"AdminHome.jsp\";");
-                pw.println("</script>");
-                //RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
-                //rd.forward(request, response);
-            } else {
-                pw.println("<script type=\"text/javascript\">");
-                pw.println("alert('Incorrect Data..!');");
-                pw.println("window.location.href = \"AddWorker.jsp\";");
-                pw.println("</script>");
-                //RequestDispatcher rd = request.getRequestDispatcher("AddWorker.jsp");
-                //rd.forward(request, response);
+                int i = pst.executeUpdate();
+                if (i > 0) {
+                    pw.println("<script type=\"text/javascript\">");
+                    pw.println("alert('Worker Added Successfully!');");
+                    pw.println("window.location.href = \"adminWorkerList.jsp\";");
+                    pw.println("</script>");
+                } else {
+                    pw.println("<script type=\"text/javascript\">");
+                    pw.println("alert('Failed to add Worker!');");
+                    pw.println("window.location.href = \"addWorker.jsp\";");
+                    pw.println("</script>");
+                }
             }
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(AddPatient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            pw.println("<script type=\"text/javascript\">");
+            pw.println("alert('Error: " + ex.getMessage().replace("'", "\\'") + "');");
+            pw.println("window.location.href = \"addWorker.jsp\";");
+            pw.println("</script>");
         }
     }
 }

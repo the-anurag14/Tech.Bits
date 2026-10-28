@@ -1,67 +1,65 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import Database.DatabaseConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Admin piyush
- */
 @WebServlet("/AdminLogin")
 public class AdminLogin extends HttpServlet {
-
-    private String user;
-    private String pass;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter pw = response.getWriter();
-        try {
-            String userp = request.getParameter("your_name");
-            String passp = request.getParameter("your_pass");
-            Connection con = DatabaseConnection.initializeDatabase();
+        
+        String username = request.getParameter("your_name");
+        String password = request.getParameter("your_pass");
 
-            String s = "select *from adminreg";
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(s);
-            while (rs.next()) {
-                user = rs.getString(1);
-                pass = rs.getString(2);
-            }
-            if (userp.equals(user) && passp.equals(pass)) {
-                pw.println("<script type=\"text/javascript\">");
-                pw.println("alert('Login Successfully..!');");
-                pw.println("window.location.href = \"AdminHome.jsp\";");
-                pw.println("</script>");
-                //RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
-                //rd.forward(request, response);
-            } else {
-                pw.println("<script type=\"text/javascript\">");
-                pw.println("alert('Username or Password is Incorrect..!');");
-                pw.println("window.location.href = \"index.jsp\";");
-                pw.println("</script>");
-                //RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                //rd.include(request, response);
-            }
-        } catch (Exception e) {
-
+        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            pw.println("<script type=\"text/javascript\">");
+            pw.println("alert('Please enter both Admin username/email and password!');");
+            pw.println("window.location.href = \"adminLogin.jsp\";");
+            pw.println("</script>");
+            return;
         }
 
-    }
+        try (Connection con = DatabaseConnection.initializeDatabase();
+             PreparedStatement pst = con.prepareStatement("SELECT * FROM adminreg WHERE email = ? AND password = ?")) {
+            
+            pst.setString(1, username.trim());
+            pst.setString(2, password);
 
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("admin", username.trim());
+                    pw.println("<script type=\"text/javascript\">");
+                    pw.println("alert('Admin Login Successful!');");
+                    pw.println("window.location.href = \"AdminHome.jsp\";");
+                    pw.println("</script>");
+                } else {
+                    pw.println("<script type=\"text/javascript\">");
+                    pw.println("alert('Invalid Admin credentials!');");
+                    pw.println("window.location.href = \"adminLogin.jsp\";");
+                    pw.println("</script>");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            pw.println("<script type=\"text/javascript\">");
+            pw.println("alert('Database Error: " + e.getMessage().replace("'", "\\'") + "');");
+            pw.println("window.location.href = \"adminLogin.jsp\";");
+            pw.println("</script>");
+        }
+    }
 }

@@ -106,7 +106,7 @@
         </nav>
 
         <div class="serchbar">
-            <form action=" " method="post">
+            <form action="listPatient.jsp" method="get">
                 <input class="search" type="text" name="search" placeholder="Search Here..."/>
             </form>
         </div>

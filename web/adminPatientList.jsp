@@ -131,7 +131,7 @@
         </nav>
 
         <div class="serchbar">
-            <form action=" " method="post">
+            <form action="adminPatientList.jsp" method="get">
                 <input class="search" type="text" name="search" placeholder="Search Here..."/>
             </form>
         </div>
@@ -194,7 +194,7 @@
                                         <td class="cell100 column10">
                                             <a href="updatePatient.jsp?mob=<%=mob%>">Edit</a>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a href="deletePatient.jsp?mob=<%=mob%>">Delete</a>                     
+                                            <a href="deletePatient.jsp?mob=<%=mob%>" onclick="return confirm('Are you sure you want to delete this patient?');" style="color: red; font-weight: bold;">Delete</a>                     
                                         </td>
                                     </tr>
                                 </tbody>

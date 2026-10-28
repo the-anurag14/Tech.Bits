@@ -82,7 +82,7 @@
 
                     <div class="wrap-input100 validate-input" data-validate="Phone is required">
                         <span class="label-input100">Phone:</span>
-                        <input class="input100" type="text" value="<%= rs.getString(9)%>" name="Mobile" placeholder="Enter phone number">
+                        <input class="input100" type="text" value="<%= rs.getString(9)%>" name="Mobile" readonly style="background-color: #e9ecef; cursor: not-allowed;" title="Mobile number cannot be changed as it is the primary record ID">
                         <span class="focus-input100"></span>
                     </div>
 

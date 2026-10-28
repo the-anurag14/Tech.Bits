@@ -131,7 +131,7 @@
         </nav>
 
         <div class="serchbar">
-            <form action=" " method="post">
+            <form action="adminRecpList.jsp" method="get">
                 <input class="search" type="text" name="search" placeholder="Search Here..."/>
             </form>
         </div>
@@ -181,9 +181,7 @@
                                         <td class="cell100 column3"><%=rs.getString(3)%></td>
                                         <td class="cell100 column4"><%=rs.getString(4)%></td>
                                         <td class="cell100 column5">
-                                            <a href="">Edit</a>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a href="">Delete</a>                     
+                                            <a href="deleteRecp.jsp?mob=<%=rs.getString(3)%>" onclick="return confirm('Are you sure you want to delete this receptionist?');" style="color: red; font-weight: bold;">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>

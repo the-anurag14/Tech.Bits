@@ -1,88 +1,86 @@
-# HospitalManagementSystem
-Hospital management system project in java using JSP, servlet, Mysql, and eclipse. Its using java as core technology and Mysql as backend to manage the data records. The application is following the MVC architecture with maven tool. HMS is a web application which is a help to manage the activity of an hospital Like Patient management, Doctor management, Manage appointments. Manage the records of patients.
+# 🏥 Hospital Management System (HMS)
 
+A complete Hospital Management System web application built using **Java (JSP, Servlets, JDBC)**, **MySQL**, and **HTML5/CSS3/JavaScript**, following the MVC architecture.
 
-The main objective to develop Hospital management system in java is to manage the hospital activity online.
+---
 
-There will be Three main Actors or Users of the application 
-1. doctor 
-2. Admin 
-3. Receptionist.
+## 📋 Overview
 
-There are three main actors of the system who going to manage or run the complete application. Let’s discuss one by one according to the role and readabilities.
+The main objective of this Hospital Management System is to streamline hospital administrative activities, staff management, patient records, and appointment scheduling online.
 
-# Modules
+The application supports three primary user roles:
+1. 👨‍⚕️ **Doctor**: Check appointments, view patient records and schedules.
+2. 🛠️ **Admin**: Full administrative privileges to add, update, view, and delete Doctors, Receptionists, Patients, and Appointments.
+3. 👩‍💼 **Receptionist**: Manage appointments, register and edit patient records.
 
-## Admin 
-   Admin is the main actor who will be responsible for managing Doctors and Receptionists. Below is the task list which will be performed by admin.
- 
-  * Admin can ADD/DELETE/UPDATE a doctor.
-  * Admin can VIEW the list of doctors.
-  * Admin can ADD/DELETE/UPDATE a receptionist.
-  * Admin can VIEW the list of receptionists.
-  * Admin can ADD/DELETE/UPDATE a patient.
-  * Admin can ADD/DELETE/UPDATE a appointments.
-  
-## Doctor:
-  * Doctor can check the appointment and the patient list.
-  * Doctor can VIEW the appointments. 
-  * The doctor can VIEW the patient list.
-   
-   
-## Receptionist:
-  * Receptionist can ADD/EDIT/VIEW appointments.
-  * Receptionist can ADD/EDIT/VIEW patient .
-   
-   
- # Technology
-   
-Technology used in the Hospital Management System project in java
+---
 
-* Front -End Jsp, Html, CSS, JS.
-* Server-side: Servlet.
-* Back-end: MYSQL.
-* Server: Tomcat 8.5.
+## 🛠️ Technology Stack
 
+- **Frontend**: JSP (JavaServer Pages), HTML5, CSS3, JavaScript
+- **Backend**: Java Servlets, JDBC, DAO Pattern
+- **Database**: MySQL
+- **Build Tool / IDE**: Apache Ant / NetBeans / Eclipse
+- **Server**: Apache Tomcat 8.5+
 
-Screenshot:
+---
 
-![Admin Home - Google Chrome 20-08-2020 01_59_35 PM](https://user-images.githubusercontent.com/56467741/90974861-36794f00-e4fd-11ea-946a-c6c35f3de310.png)
+## 📂 Project Structure
 
-![Admin Home - Google Chrome 20-08-2020 02_00_03 PM](https://user-images.githubusercontent.com/56467741/90974864-3a0cd600-e4fd-11ea-92a6-b42f7cd2b338.png)
+```bash
+Tech.Bits/
+├── hospital.sql                  # MySQL database schema and sample data
+├── build.xml                     # Ant build configuration
+├── nbproject/                    # NetBeans project configuration
+├── src/
+│   └── java/
+│       ├── Controller/           # Servlets (Login, Register, Add/Update records)
+│       ├── Database/             # Database connection manager (JDBC)
+│       └── dao/                  # Data Access Objects (User, Patient, Doctor, Appointment)
+└── web/                          # JSP pages, assets, stylesheets, and scripts
+    ├── css/                      # Stylesheets
+    ├── fonts/                    # Font assets
+    ├── img/                      # UI illustrations and images
+    ├── js/                       # Client-side scripts
+    └── *.jsp                     # Views (AdminHome, UserHome, addDoctor, etc.)
+```
 
-![Admin Home - Google Chrome 20-08-2020 02_00_38 PM](https://user-images.githubusercontent.com/56467741/90974867-3d07c680-e4fd-11ea-858d-a859e9d55cc3.png)
+---
 
-![Admin Home - Google Chrome 20-08-2020 02_00_59 PM](https://user-images.githubusercontent.com/56467741/90974868-3da05d00-e4fd-11ea-9b33-a8c034763d1e.png)
+## ⚙️ Setup & Installation
 
-![Admin Home - Google Chrome 20-08-2020 02_01_58 PM](https://user-images.githubusercontent.com/56467741/90974876-442ed480-e4fd-11ea-88ea-43b334aad466.png)
+### 1. Database Setup
+1. Open MySQL (Command Line, MySQL Workbench, or phpMyAdmin).
+2. Create and import the database:
+   ```sql
+   CREATE DATABASE hospital;
+   USE hospital;
+   SOURCE hospital.sql;
+   ```
+3. Check `src/java/Database/DatabaseConnection.java` and verify your MySQL credentials:
+   ```java
+   String url = "jdbc:mysql://localhost:3306/hospital";
+   String user = "your_mysql_username";
+   String password = "your_mysql_password";
+   ```
 
-![Admin Home - Google Chrome 20-08-2020 02_02_23 PM](https://user-images.githubusercontent.com/56467741/90974884-527cf080-e4fd-11ea-8ea5-167850c384b5.png)
+### 2. Deploy on Apache Tomcat
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/the-anurag14/Tech.Bits.git
+   ```
+2. Open the project in **NetBeans** or **Eclipse** as a Web Application project.
+3. Add the **MySQL Connector / J** (`mysql-connector-java.jar`) to the project libraries.
+4. Add your **Apache Tomcat** server runtime.
+5. Clean & Build the project, then click **Run**.
+6. Access the application in your browser:
+   ```
+   http://localhost:8080/Tech.Bits/
+   ```
 
-![Patient List - Google Chrome 20-08-2020 02_03_16 PM](https://user-images.githubusercontent.com/56467741/90974887-56107780-e4fd-11ea-92bf-e8277556152f.png)
+---
 
+## 👨‍💻 Author
 
-Admin Login:
-
-![Admin Home - Google Chrome 20-08-2020 01_59_17 PM](https://user-images.githubusercontent.com/56467741/90974898-63c5fd00-e4fd-11ea-897c-57c62515fc4c.png)
-
-
-Admin Dashboard:
-
-![Admin Home - Google Chrome 20-08-2020 01_58_45 PM](https://user-images.githubusercontent.com/56467741/90974889-5872d180-e4fd-11ea-84aa-e23402ecdea0.png)
-
-
-**NOTE:- This is the new project. Old file were corrupted.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**Anurag Kumar**  
+GitHub: [@the-anurag14](https://github.com/the-anurag14)
